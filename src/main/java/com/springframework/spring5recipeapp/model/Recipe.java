@@ -1,10 +1,14 @@
 package com.springframework.spring5recipeapp.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
 public class Recipe {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredients;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
