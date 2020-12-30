@@ -1,10 +1,14 @@
 package com.springframework.spring5recipeapp.model;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+/**
+ * Created by jt on 6/13/17.
+ */
 @Data
 @EqualsAndHashCode(exclude = {"recipe"})
 @Entity
@@ -25,11 +29,12 @@ public class Ingredient {
     public Ingredient() {
     }
 
-//    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
-//        this.description = description;
-//        this.amount = amount;
-//        this.uom = uom;
-//    }
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = uom;
+    }
+
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure uom, Recipe recipe) {
         this.description = description;
         this.amount = amount;

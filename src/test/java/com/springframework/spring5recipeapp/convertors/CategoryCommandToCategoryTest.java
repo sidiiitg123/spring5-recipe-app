@@ -1,17 +1,13 @@
-package com.springframework.spring5recipeapp.controller;
+package com.springframework.spring5recipeapp.convertors;
 
 import com.springframework.spring5recipeapp.commands.CategoryCommand;
-import com.springframework.spring5recipeapp.commands.RecipeCommand;
-import com.springframework.spring5recipeapp.convertors.CategoryCommandToCategory;
 import com.springframework.spring5recipeapp.model.Category;
-import com.springframework.spring5recipeapp.model.Recipe;
-import com.springframework.spring5recipeapp.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-class CategoryCommandToCategoryTest {
+public class CategoryCommandToCategoryTest {
 
     public static final Long ID_VALUE = new Long(1L);
     public static final String DESCRIPTION = "description";

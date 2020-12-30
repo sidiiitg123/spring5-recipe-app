@@ -1,11 +1,13 @@
 package com.springframework.spring5recipeapp.model;
-
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Created by jt on 6/13/17.
+ */
 @Data
 @Entity
 public class Recipe {
@@ -42,11 +44,11 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-
-
     public void setNotes(Notes notes) {
-        this.notes = notes;
-        notes.setRecipe(this);
+        if (notes != null) {
+            this.notes = notes;
+            notes.setRecipe(this);
+        }
     }
 
     public Recipe addIngredient(Ingredient ingredient){
@@ -54,5 +56,4 @@ public class Recipe {
         this.ingredients.add(ingredient);
         return this;
     }
-
 }
