@@ -1,8 +1,11 @@
 package com.springframework.spring5recipeapp.services;
 
 import com.springframework.spring5recipeapp.Repository.RecipeRepository;
+import com.springframework.spring5recipeapp.Repository.UnitOfMeasureRepository;
 import com.springframework.spring5recipeapp.commands.IngredientCommand;
+import com.springframework.spring5recipeapp.convertors.IngredientCommandToIngredient;
 import com.springframework.spring5recipeapp.convertors.IngredientToIngredientCommand;
+import com.springframework.spring5recipeapp.convertors.UnitOfMeasureCommandToUnitOfMeasure;
 import com.springframework.spring5recipeapp.convertors.UnitOfMeasureToUnitOfMeasureCommand;
 import com.springframework.spring5recipeapp.model.Ingredient;
 import com.springframework.spring5recipeapp.model.Recipe;
@@ -20,14 +23,20 @@ import static org.mockito.ArgumentMatchers.anyLong;
 public class IngredientServiceImplTest {
 
     private final IngredientToIngredientCommand ingredientToIngredientCommand;
+    private final IngredientCommandToIngredient ingredientCommandToIngredient;
 
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    UnitOfMeasureRepository unitOfMeasureRepository;
+
+
     IngredientService ingredientService;
 
     //init converters
-    public IngredientServiceImplTest() {
+    public IngredientServiceImplTest(IngredientCommandToIngredient ingredientCommandToIngredient) {
+        this.ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
         this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
     }
 
@@ -35,7 +44,8 @@ public class IngredientServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, recipeRepository);
+        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
+                recipeRepository, unitOfMeasureRepository);
     }
 
     @Test

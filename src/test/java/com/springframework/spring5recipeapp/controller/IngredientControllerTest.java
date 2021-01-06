@@ -4,6 +4,7 @@ import com.springframework.spring5recipeapp.commands.IngredientCommand;
 import com.springframework.spring5recipeapp.commands.RecipeCommand;
 import com.springframework.spring5recipeapp.services.IngredientService;
 import com.springframework.spring5recipeapp.services.RecipeService;
+import com.springframework.spring5recipeapp.services.UnitOfMeasureService;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +30,8 @@ public class IngredientControllerTest {
     @Mock
     IngredientService ingredientService;
 
+    @Mock
+    UnitOfMeasureService unitOfMeasureService;
 
     IngredientController controller;
 
@@ -38,7 +41,7 @@ public class IngredientControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        controller = new IngredientController( recipeService, ingredientService);
+        controller = new IngredientController( recipeService, ingredientService,unitOfMeasureService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
     @Test
