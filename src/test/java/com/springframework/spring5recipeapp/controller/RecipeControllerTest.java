@@ -2,6 +2,7 @@ package com.springframework.spring5recipeapp.controller;
 
 
 import com.springframework.spring5recipeapp.commands.RecipeCommand;
+import com.springframework.spring5recipeapp.exception.NotFoundException;
 import com.springframework.spring5recipeapp.model.Recipe;
 import com.springframework.spring5recipeapp.services.RecipeService;
 import org.mockito.MockitoAnnotations;
@@ -52,6 +53,26 @@ public class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void testGetRecipeNotFound1() throws Exception {
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/4/show"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("404error"));
+    }
+
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/4/show"))
+                .andExpect(status().isNotFound());
     }
 
     @Test

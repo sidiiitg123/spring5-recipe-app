@@ -5,6 +5,7 @@ import com.springframework.spring5recipeapp.Repository.RecipeRepository;
 import com.springframework.spring5recipeapp.commands.RecipeCommand;
 import com.springframework.spring5recipeapp.convertors.RecipeCommandToRecipe;
 import com.springframework.spring5recipeapp.convertors.RecipeToRecipeCommand;
+import com.springframework.spring5recipeapp.exception.NotFoundException;
 import com.springframework.spring5recipeapp.model.Recipe;
 import org.junit.Before;
 import org.junit.Test;
@@ -54,6 +55,19 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+
+
+    }
+
 
     @Test
     public void getRecipeCoomandByIdTest() throws Exception {
